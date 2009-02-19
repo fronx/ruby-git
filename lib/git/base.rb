@@ -364,6 +364,14 @@ module Git
       self.object(treeish).archive(file, opts)
     end
     
+    # use a stream to import into the repository
+    def import_stream 
+      stream = Git::Stream.new
+      yield stream
+                 
+      self.lib.fast_import(stream)
+    end
+    
     # repacks the repository
     def repack
       self.lib.repack

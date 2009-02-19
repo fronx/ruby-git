@@ -581,6 +581,17 @@ module Git
       command('checkout-index', arr_opts)
     end
     
+    def fast_import(stream)
+      tmp = Tempfile.new("stream-file")
+      tmp.write(stream.to_s)
+      tmp.flush
+      begin
+        command('fast-import',"--date-format=rfc2822",true,"< #{escape tmp.path}")
+      ensure
+        tmp.close(true)
+      end
+    end
+    
     # creates an archive file
     #
     # options

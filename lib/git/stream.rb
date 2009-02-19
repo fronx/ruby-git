@@ -25,6 +25,28 @@ module Git
       @changes = []
     end
     
+    def modify_file(repos_path, data, mode = nil)
+      sfm = StreamFileModify.new(repos_path, data)
+      sfm.mode = mode unless mode == nil
+      changes << sfm
+    end
+    
+    def delete_file(repos_path)
+      changes << StreamFileDelete.new(repos_path)
+    end
+    
+    def rename_file(repos_path_from, repos_path_to)
+      changes << StreamFileRename.new(repos_path_form, repos_path_to)
+    end
+
+    def copy_file(repos_path_from, repos_path_to)
+      changes << StreamFileCopy.new(repos_path_form, repos_path_to)
+    end
+    
+    def delete_all_files()
+      changes << StreamFileDeleteAll.new
+    end
+    
     def to_s 
       out = "commit refs/heads/#{branch.to_s}\n"
       out << "mark #{mark}\n" 
@@ -143,7 +165,25 @@ module Git
   # It is not complete!
   class Stream
     
+    attr_reader :commands
     
+    def initialize
+      @commands = []
+    end
+    
+    def commit
+      cmt = Git::StreamCommit.new
+      yield cmt
+      commands << cmt
+    end
+    
+    def to_s
+      s = ""
+      commands.each do |cmd|
+        s << cmd.to_s
+      end
+      return s
+    end
   end
   
 end
