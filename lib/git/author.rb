@@ -10,5 +10,10 @@ module Git
       end
     end
     
+    def initialize(name, email, date = Time.now)
+      @name = name
+      @email = email
+      @date = date
+    end
   end
 end

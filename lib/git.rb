@@ -26,6 +26,8 @@ require 'git/author'
 require 'git/stashes'
 require 'git/stash'
 
+require 'git/stream'
+
 
 # Git/Ruby Library
 #
