@@ -18,6 +18,10 @@ module Git
     def fetch
       @base.fetch(@name)
     end
+
+    def prune
+      @base.prune(@name)
+    end
     
     # merge this remote locally
     def merge(branch = 'master')

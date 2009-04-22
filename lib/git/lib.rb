@@ -521,6 +521,10 @@ module Git
     def fetch(remote)
       command('fetch', remote)
     end
+
+    def prune(remote)
+      command('remote prune', remote)
+    end
     
     def push(remote, branch = 'master', tags = false)
       command('push', [remote, branch])

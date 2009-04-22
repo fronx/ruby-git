@@ -298,6 +298,10 @@ module Git
       self.lib.fetch(remote)
     end
 
+    def prune(remote = 'origin')
+      self.lib.prune(remote)
+    end
+
     # pushes changes to a remote repository - easiest if this is a cloned repository,
     # otherwise you may have to run something like this first to setup the push parameters:
     #
